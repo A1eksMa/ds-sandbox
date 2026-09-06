@@ -1,0 +1,15 @@
+{
+  "update_dir": "/home/<username>/ds-sandbox/ds-data/upd",
+  "db_path": "/home/<username>/ds-sandbox/ds-data/data.db",
+  "sources_dir": "/home/<username>/ds-sandbox/sources",
+  "archive_dir": "/home/<username>/ds-sandbox/ds-data/archive",
+  "quarantine_dir": "/home/<username>/ds-sandbox/ds-data/quarantine",
+  "ledger_path": "/home/<username>/ds-sandbox/ds-data/.ds-loader/ledger.jsonl",
+  "poll_interval_seconds": 5.0,
+  "stable_after_seconds": 2.0,
+  "filename_tz": "utc",
+  "ds_command": ["python3", "-m", "src.cli.commands"],
+  "ds_pythonpath": "/home/<username>/ds",
+  "stages": ["ingest"],
+  "sources": {}
+}

@@ -1,0 +1,13 @@
+# сгенерировано setup.sh / рантайм загрузчика
+/config.json
+/ds-data/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# OS / editor
+.DS_Store
+*~
+.idea/
+.vscode/
