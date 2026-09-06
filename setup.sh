@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 #
+# ds-sandbox 0.1.0a1
+#
 # Готовит локальный стенд: генерирует config.json из шаблона и создаёт
 # рабочее дерево ds-data/. Идемпотентно — можно запускать повторно.
 #
-# Расположение чекаутов ds / ds-loader по умолчанию — рядом с этим репозиторием.
-# Переопределяется переменными окружения:
-#   DS_DIR=/path/to/ds  DS_LOADER_DIR=/path/to/ds-loader  ./setup.sh
+# Расположение чекаутов ds / ds-loader / ds-webui по умолчанию — рядом с этим
+# репозиторием. Переопределяется переменными окружения:
+#   DS_DIR=... DS_LOADER_DIR=... DS_WEBUI_DIR=... ./setup.sh
 #
 set -euo pipefail
 
@@ -13,18 +15,24 @@ SANDBOX_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PARENT="$(dirname "$SANDBOX_ROOT")"
 DS_DIR="${DS_DIR:-$PARENT/ds}"
 DS_LOADER_DIR="${DS_LOADER_DIR:-$PARENT/ds-loader}"
+DS_WEBUI_DIR="${DS_WEBUI_DIR:-$PARENT/ds-webui}"
 
-echo "sandbox : $SANDBOX_ROOT"
-echo "ds      : $DS_DIR"
+echo "sandbox  : $SANDBOX_ROOT"
+echo "ds       : $DS_DIR"
 echo "ds-loader: $DS_LOADER_DIR"
+echo "ds-webui : $DS_WEBUI_DIR"
 
 [ -f "$DS_DIR/src/cli/commands.py" ] || {
   echo "!! не найден $DS_DIR/src/cli/commands.py — укажи DS_DIR=..." >&2; exit 1; }
 [ -f "$DS_LOADER_DIR/src/cli/main.py" ] || {
   echo "!! не найден $DS_LOADER_DIR/src/cli/main.py — укажи DS_LOADER_DIR=..." >&2; exit 1; }
+[ -d "$DS_WEBUI_DIR" ] || {
+  echo "!! не найден каталог $DS_WEBUI_DIR — укажи DS_WEBUI_DIR=..." >&2; exit 1; }
 
-# config.json из шаблона: сначала путь стенда (длиннее), потом путь ядра.
+# config.json из шаблона. Порядок замен важен: длинные префиксы (ds-sandbox,
+# ds-webui) раньше короткого ds\b, иначе ds\b «съест» ds-webui на дефисе.
 sed -e "s|/home/<username>/ds-sandbox|$SANDBOX_ROOT|g" \
+    -e "s|/home/<username>/ds-webui|$DS_WEBUI_DIR|g" \
     -e "s|/home/<username>/ds\\b|$DS_DIR|g" \
     "$SANDBOX_ROOT/config.template.json" > "$SANDBOX_ROOT/config.json"
 echo "-> config.json"
@@ -32,8 +40,9 @@ echo "-> config.json"
 mkdir -p "$SANDBOX_ROOT/ds-data/upd" \
          "$SANDBOX_ROOT/ds-data/archive" \
          "$SANDBOX_ROOT/ds-data/quarantine" \
-         "$SANDBOX_ROOT/ds-data/.ds-loader"
-echo "-> ds-data/{upd,archive,quarantine,.ds-loader}"
+         "$SANDBOX_ROOT/ds-data/.ds-loader" \
+         "$DS_WEBUI_DIR/data"
+echo "-> ds-data/{upd,archive,quarantine,.ds-loader}, ds-webui/data"
 
 echo
 echo "Готово. Дальше:"
