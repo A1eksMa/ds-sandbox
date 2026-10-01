@@ -1,6 +1,10 @@
 # сгенерировано setup.sh / рантайм загрузчика
 /config.json
 /ds-data/
+# рантайм ingest на источник (source.json в sources/<name>/ остаётся в git)
+/sources/*/upload/
+/sources/*/archive/
+/sources/*/quarantine/
 
 # Python
 __pycache__/

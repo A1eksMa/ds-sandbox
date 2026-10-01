@@ -37,12 +37,10 @@ sed -e "s|/home/<username>/ds-sandbox|$SANDBOX_ROOT|g" \
     "$SANDBOX_ROOT/config.template.json" > "$SANDBOX_ROOT/config.json"
 echo "-> config.json"
 
-mkdir -p "$SANDBOX_ROOT/ds-data/upd" \
-         "$SANDBOX_ROOT/ds-data/archive" \
-         "$SANDBOX_ROOT/ds-data/quarantine" \
-         "$SANDBOX_ROOT/ds-data/.ds-loader" \
+mkdir -p "$SANDBOX_ROOT/ds-data/.ds-loader" \
          "$DS_WEBUI_DIR/data"
-echo "-> ds-data/{upd,archive,quarantine,.ds-loader}, ds-webui/data"
+echo "-> ds-data/.ds-loader, ds-webui/data"
+echo "   (upload/archive/quarantine на источник создаёт сам ds-loader под sources/<name>/)"
 
 echo
 echo "Готово. Дальше:"
