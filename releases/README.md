@@ -30,6 +30,32 @@ tar -xzf ds-sandbox-<version>.tar.gz -C /path/to/target/folder
 
 ---
 
+## 0.2.0a1 — `ds-sandbox-0.2.0a1.tar.gz`
+
+Догоняет `ds-loader` 0.5.0a1: раскладка на источник вместо плоского `ds-data/`, `ds upload`
+вместо `ds load`. Без этого стенд на актуальных `ds`/`ds-loader` был сломан — не ломался
+только на уже устаревшей паре 0.4.0a1-совместимых чекаутов.
+
+- **`feed.sh`**: источник теперь определяется по имени файла (всё до первого `_`, как и
+  `ds-loader/src/domain/naming.py`), образец кладётся в `sources/<source>/upload/`
+  (создаётся при необходимости) — а не в `ds-data/upd/`, которую новый `ingest` (0.5.0a1)
+  вообще не сканирует.
+- **`setup.sh` / `config.template.json`**: больше не создают/не ссылаются на
+  `ds-data/{upd,archive,quarantine}` — `Config.update_dir`/`archive_dir`/`quarantine_dir`
+  убраны из `ds-loader` 0.5.0a1; `upload/`/`archive/`/`quarantine/` теперь живут внутри
+  `sources/<source>/` и заводятся самим `ingest`.
+- **`sources/CRM/source.json`**: добавлены `labels[]` (`email`, `phone`, оба
+  `"publish": true`). Без этого первая же загрузка отклонялась бы целиком — `ingest`
+  зовёт строгий `ds upload`, который отказывает при необъявленном показателе; а без
+  `publish: true` стадия `publish` (тоже 0.5.0a1) не отдала бы `ds-webui` ни одного
+  показателя.
+- `.gitignore` — добавлены `sources/*/{upload,archive,quarantine}/` (сам `source.json`
+  рядом остаётся в git).
+- `README.md`: раскладка, ожидаемый вывод (`uploaded N transaction(s)`, как теперь
+  называет это ядро), пояснение про `labels[]`/`publish`, упоминание `--force-publish`.
+
+**Ломает совместимость** с `0.1.0a1`: требует `ds-loader >= 0.5.0a1` и `ds >= 0.8.0a1`.
+
 ## 0.1.0a1 — `ds-sandbox-0.1.0a1.tar.gz`
 
 Первая версия стенда для связки `ds` + `ds-loader` + `ds-webui`.
