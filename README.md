@@ -112,6 +112,7 @@
 | `sources/CRM/quarantine/` | ошибка `ds` или битая метка + `.err`-сайдкар | нет |
 | `ds-data/.ds-loader/ledger.jsonl` | журнал обработанных (основа exactly-once, общий на все источники) | нет |
 | `ds-data/.ds-loader/publish.json` | отпечатки опубликованного (идемпотентность `publish`) | нет |
+| `ds-data/.ds-loader/get-cache.json` | инкрементальный кэш свёртки `ds get --cache` (`ds` ≥ 0.10.0a1) — ускоряет повторные `publish`, не меняет результат | нет |
 | `ds-data/data.db` | БД `ds` | нет |
 
 ## Пути к `ds` / `ds-loader` / `ds-webui`

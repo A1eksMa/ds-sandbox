@@ -11,5 +11,6 @@
   "webui_data_dir": "/home/<username>/ds-webui/data",
   "webui_preset": null,
   "publish_state_path": "/home/<username>/ds-sandbox/ds-data/.ds-loader/publish.json",
+  "publish_cache_path": "/home/<username>/ds-sandbox/ds-data/.ds-loader/get-cache.json",
   "sources": {}
 }
