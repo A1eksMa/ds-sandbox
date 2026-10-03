@@ -1,6 +1,7 @@
 {
   "name": "CRM",
   "key_label": "customer_id",
+  "description": "CRM: тестовые клиенты стенда, образцы из samples/",
   "labels": [
     { "name": "email", "type": "text", "publish": true },
     { "name": "phone", "type": "text", "publish": true }
