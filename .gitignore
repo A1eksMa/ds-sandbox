@@ -3,6 +3,7 @@
 /ds-data/
 # рантайм ingest на источник (source.json в sources/<name>/ остаётся в git)
 /sources/*/upload/
+/sources/*/load/
 /sources/*/archive/
 /sources/*/quarantine/
 

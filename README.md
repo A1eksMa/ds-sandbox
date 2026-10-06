@@ -108,6 +108,7 @@
 | `sources/CRM/source.json` | конфиг источника (`labels[]` с `publish: true` — иначе `ds upload` отклонит файл целиком, см. ниже) | да |
 | `samples/*.json` | образцы выгрузок (имя `<src>_YYYY-MM-DD_HH-MM-SS_<µs>.json`) | да |
 | `sources/CRM/upload/` | инбокс источника: сюда `feed.sh` кладёт файлы, `ingest` создаёт сам, если нет | нет |
+| `sources/CRM/load/` | тот же инбокс, но `ds load` вместо `ds upload` — прямой и менее безопасный путь, без строгой проверки (`ds-loader` ≥ 0.8.0a1); `feed.sh` в него не кладёт, создаётся `ingest` сама | нет |
 | `sources/CRM/archive/` | успешно загруженные | нет |
 | `sources/CRM/quarantine/` | ошибка `ds` или битая метка + `.err`-сайдкар | нет |
 | `ds-data/.ds-loader/ledger.jsonl` | журнал обработанных (основа exactly-once, общий на все источники) | нет |
